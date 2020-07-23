@@ -10,8 +10,8 @@ public class AppManager : MonoBehaviour
     public FilmPassportView testView;
     async void Init()
     {
-        NetworkManager networkManager = new NetworkManager(settings);
-        var result = await networkManager.RequestPopularFilmsPassports(1,2019);
+        NetworkManager.NetworkSettings = settings.networkSettings;
+        var result = await NetworkManager.RequestPopularFilmsPassports(1,2019);
         
         testView.Init(result.Films.First());
 

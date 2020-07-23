@@ -6,22 +6,23 @@ using UniRx.Async;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class NetworkManager
+public static class NetworkManager
 {
-    private NetworkSettings _networkSettings;
-    
-    public NetworkManager(ProjectSettings projectSettings)
+    public static NetworkSettings NetworkSettings;
+
+    public static async UniTask<FilmsResponce> RequestPopularFilmsPassports(int pageNumber, int year)
     {
-        _networkSettings = projectSettings.networkSettings;
-    }
-    
-    public async UniTask<FilmsResponce> RequestPopularFilmsPassports(int pageNumber, int year)
-    {
-        var url = $"{_networkSettings.tmdbApiUrl}?api_key={_networkSettings.apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page={pageNumber}&year={year}";
+        var url = $"{NetworkSettings.tmdbApiUrl}?api_key={NetworkSettings.apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page={pageNumber}&year={year}";
         return await Request<FilmsResponce>(url);
     }
+
+    public static async UniTask<Texture> RequestFilmPoster(string urlMethod)
+    {
+        var url = $"{NetworkSettings.filmsPostersUrl}{urlMethod}";
+        return await GetTexture(url);
+    }
     
-    private async UniTask<T> Request<T>(string urlMethod)
+    private static async UniTask<T> Request<T>(string urlMethod)
     {
         Debug.LogFormat("Request '{0}'", urlMethod);
         
@@ -39,7 +40,7 @@ public class NetworkManager
         }
     }
     
-    private async UniTask<Texture2D> GetTexture(string urlMethod)
+    private static async UniTask<Texture> GetTexture(string urlMethod)
     {
         using (var webRequest = UnityWebRequestTexture.GetTexture(urlMethod))
         {
