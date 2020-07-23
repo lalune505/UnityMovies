@@ -38,4 +38,20 @@ public class NetworkManager
             return JsonConvert.DeserializeObject<T>(webRequest.downloadHandler.text);
         }
     }
+    
+    private async UniTask<Texture2D> GetTexture(string urlMethod)
+    {
+        using (var webRequest = UnityWebRequestTexture.GetTexture(urlMethod))
+        {
+            webRequest.downloadHandler = new DownloadHandlerTexture();
+            await webRequest.SendWebRequest();
+            if (webRequest.isHttpError || webRequest.isNetworkError)
+            {
+                Debug.LogError($"Request {webRequest.url} error: {webRequest.error}");
+                return null;
+            }
+
+            return DownloadHandlerTexture.GetContent(webRequest);
+        }
+    }
 }
