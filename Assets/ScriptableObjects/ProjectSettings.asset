@@ -15,4 +15,4 @@ MonoBehaviour:
   networkSettings:
     tmdbApiUrl: https://api.themoviedb.org/3/discover/movie
     apiKey: 4e52a736b254e054d9c53b22be27c6b1
-    tmdpRatingFilter: 'popularity.desc '
+    filmsPostersUrl: https://image.tmdb.org/t/p/w500

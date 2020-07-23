@@ -7,4 +7,5 @@ public class NetworkSettings
 {
     public string tmdbApiUrl;
     public string apiKey;
+    public string filmsPostersUrl;
 }

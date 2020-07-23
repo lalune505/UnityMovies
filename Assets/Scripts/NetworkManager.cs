@@ -24,10 +24,9 @@ public class NetworkManager
     private async UniTask<T> Request<T>(string urlMethod)
     {
         Debug.LogFormat("Request '{0}'", urlMethod);
+        
         using (var webRequest = UnityWebRequest.Get(urlMethod)) 
         {
-            webRequest.SetRequestHeader("Content-Type", "application/json");
-
             await webRequest.SendWebRequest();
 
             if (webRequest.isNetworkError || webRequest.isHttpError)
@@ -35,7 +34,7 @@ public class NetworkManager
                 Debug.LogError($"Request {webRequest.url} error: {webRequest.error}");
                 return default(T);
             }
-
+            
             return JsonConvert.DeserializeObject<T>(webRequest.downloadHandler.text);
         }
     }
