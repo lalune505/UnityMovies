@@ -8,10 +8,13 @@ public class ScrollViewManager : InitializableMonoBehaviour
 {
     public GameObject filmViewPrefab;
     public RectTransform scrollContent;
+    public GameObject errorPanel;
+    public GameObject loadingPanel;
 
     private async void GetItems()
     {
         var result = await NetworkManager.RequestPopularFilmsPassports(1,2019);
+        loadingPanel.SetActive(false);
 
         if (result != null)
         {
@@ -23,7 +26,8 @@ public class ScrollViewManager : InitializableMonoBehaviour
         }
         else
         {
-            Debug.Log("Error! Try later!");
+            Debug.Log("Oops... PleaseTry later!");
+            errorPanel.SetActive(true);
         }
     }
 
