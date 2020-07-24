@@ -18,6 +18,7 @@ public class FilmPassportView : MonoBehaviour
         title.text = filmPassportModel.Title;
         overView.text = filmPassportModel.Overview;
         year.text = DateTime.ParseExact(filmPassportModel.ReleaseDate, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString("MMMM dd, yyyy");
+        rating.text = filmPassportModel.VoteAverage.ToString();
         image.texture = await NetworkManager.RequestFilmPoster(filmPassportModel.PosterPath);
     }
     
