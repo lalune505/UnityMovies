@@ -10,10 +10,10 @@ public static class NetworkManager
 {
     public static NetworkSettings NetworkSettings;
 
-    public static async UniTask<FilmsResponce> RequestPopularFilmsPassports(int pageNumber, int year)
+    public static async UniTask<Responce> RequestPopularFilmsPassports(int pageNumber, int year)
     {
         var url = $"{NetworkSettings.tmdbApiUrl}?api_key={NetworkSettings.apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page={pageNumber}&year={year}";
-        return await Request<FilmsResponce>(url);
+        return await Request<Responce>(url);
     }
 
     public static async UniTask<Texture> RequestFilmPoster(string urlMethod)
