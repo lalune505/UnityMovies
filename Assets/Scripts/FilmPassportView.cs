@@ -20,7 +20,12 @@ public class FilmPassportView : MonoBehaviour
         overView.text = filmPassportModel.Overview;
         year.text = DateTime.ParseExact(filmPassportModel.ReleaseDate, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString("MMMM dd, yyyy");
         rating.text = filmPassportModel.VoteAverage.ToString();
-        image.texture = await NetworkManager.RequestFilmPoster(filmPassportModel.PosterPath);
+
+        var posterTexture = await NetworkManager.RequestFilmPoster(filmPassportModel.PosterPath);
+        if (image != null)
+        {
+            image.texture = posterTexture;
+        }
 
         if (filmPassportModel.Title.Equals("Ad Astra"))
         {
